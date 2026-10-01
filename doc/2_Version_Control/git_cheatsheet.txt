@@ -62,6 +62,12 @@ Uploads my local commits to a remote branch.
   git push                     Pushes the current branch to its tracked remote
 Updates my remote-tracking branch (o/main) too. If the remote has commits
 I don't have, the push is rejected: fetch/pull first.
+  git push -u origin <branch>  First push of a NEW branch, e.g. git push -u origin lesson2
+    - Creates the branch on the remote (my fork) and uploads its commits.
+    - -u (short for --set-upstream) links my local branch to origin/<branch>,
+      so it "remembers" where to push and pull from.
+    - Only needed the FIRST time for a branch. After that, just run: git push
+    - GitHub may ask for my username/password (or SSH key) the first time I push.
 
 
 git merge

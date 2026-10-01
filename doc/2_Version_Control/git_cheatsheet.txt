@@ -1,0 +1,94 @@
+GIT COMMAND CHEATSHEET
+======================
+
+Terms:
+  origin    = my fork on GitHub (where I push my work)
+  upstream  = the original eiefirmware repo (where I pull course updates)
+  o/main    = origin/main, a remote-tracking branch: my local record of where
+              the remote's main was the last time I talked to it
+
+
+git commit
+----------
+Saves the currently staged changes as a new commit in the current branch.
+  git commit -m "message"    Commit with the message written inline
+  git commit                 Opens a text editor (vim in Git Bash) for the message
+  git commit -am "message"   Stage all modified tracked files and commit
+Note: changes must be staged first with "git add <file>".
+
+
+git branch
+----------
+Behavior depends on the number of arguments:
+  git branch                 No arguments: LISTS local branches (* marks current)
+  git branch <name>          One argument: CREATES a new branch called <name>
+                             (does not switch to it)
+  git branch -d <name>       Deletes a branch that has been merged
+  git branch -a              Lists local and remote-tracking branches
+
+
+git checkout
+------------
+Switches the working directory to another branch (or commit).
+  git checkout <branch>      Switch to an existing branch
+  git checkout -b <branch>   Create a new branch AND switch to it
+                             (same as git branch <branch> + git checkout <branch>)
+  git checkout <commit>      Detached HEAD at that commit (also what happens
+                             if you check out o/main)
+
+
+git fetch
+---------
+Downloads new commits from a remote and updates remote-tracking branches
+(like o/main or upstream/main). Does NOT change my local branches or files.
+  git fetch                  Fetch from origin
+  git fetch <remote>         Fetch from a specific remote, e.g. git fetch upstream
+  git fetch <remote> <branch>  Fetch only that branch, e.g. git fetch upstream main
+
+
+git pull
+--------
+Fetch + merge in one step: downloads new commits, then merges them into the
+branch I'm currently on.
+  git pull <remote> <branch>   e.g. git pull upstream main
+  git pull --rebase            Fetch + rebase instead of merge (linear history,
+                               no merge commit)
+
+
+git push
+--------
+Uploads my local commits to a remote branch.
+  git push <remote> <branch>   e.g. git push origin main
+  git push                     Pushes the current branch to its tracked remote
+Updates my remote-tracking branch (o/main) too. If the remote has commits
+I don't have, the push is rejected: fetch/pull first.
+
+
+git merge
+---------
+Combines another branch into the CURRENT branch.
+  git merge <branch>         e.g. on main: git merge feature
+  - If histories diverged, creates a merge commit with two parents.
+  - If the current branch hasn't moved, it's a "fast-forward" (branch pointer
+    just moves forward, no merge commit).
+  - If both sides changed the same lines, there is a merge conflict that I
+    must resolve by hand, then git add + git commit.
+
+
+git rebase
+----------
+Replays the commits of the current branch on top of another base commit,
+creating new copies of them (C3 becomes C3') for a clean, linear history.
+  git rebase <branch>        e.g. on feature: git rebase main
+Don't rebase commits that have already been pushed and shared with others,
+since it rewrites history.
+
+
+Extra commands I've used
+------------------------
+  git remote -v                    Show remotes and their URLs
+  git remote add <name> <url>      Add a remote, e.g. upstream
+  git clone <url>                  Copy a remote repo to my computer
+  git status                       Show changed/staged files and current branch
+  git add <file>                   Stage a file for the next commit
+  git log                          Show commit history

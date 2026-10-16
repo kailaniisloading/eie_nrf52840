@@ -32,9 +32,9 @@ int main(void) {
 
   printk("data at cursor %d\n", ll_cursor_get_data(my_linked_list));
 
-  ll_remove_data_at_cursor(my_linked_list);  // Expected 5
+  ll_remove_data_at_cursor(my_linked_list);  // Expected 5, 5 is not being removed
 
-  ll_print_data(my_linked_list);  // Expected: 0 1 2 3 4 6 7 8 9
+  ll_print_data(my_linked_list);  // Expected: 0 1 2 3 4 6 7 8 9 | 5 was still printing
 
   ll_print_data_reverse(my_linked_list);
 
